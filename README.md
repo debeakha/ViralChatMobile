@@ -19,7 +19,32 @@ xcrun simctl install booted ~/Library/Developer/Xcode/DerivedData/ViralChatMobil
 xcrun simctl launch booted com.viralchat.mobile
 ```
 
-> **Note**: Mobile app currently points to `http://localhost:3000` (local web app). For production, update `APIClient.swift` to use Vercel URL.
+## Production Deployment
+
+### 1. Vercel (Web App)
+The web app is already deployed at: https://debeakha-v0-viral-chat-web-j1dwymidl-debeas-projects.vercel.app
+
+To redeploy after changes:
+```bash
+cd v0-viral-chat-web-app
+vercel deploy --prod
+```
+
+**Important**: Disable Vercel Authentication to allow mobile app API access:
+1. Go to https://vercel.com/dashboard
+2. Select project `debeakha-v0-viral-chat-web`
+3. Settings → Protection
+4. Turn off "Vercel Authentication"
+
+### 2. Mobile App (Production)
+Update `APIClient.swift` to use Vercel URL:
+```swift
+static let baseURL = "https://debeakha-v0-viral-chat-web-j1dwymidl-debeas-projects.vercel.app"
+```
+
+Then rebuild and test on simulator or device.
+
+> **Note**: Mobile app currently points to `localhost:3000` for local development. For production, update `APIClient.swift` to use Vercel URL.
 
 ---
 
