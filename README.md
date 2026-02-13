@@ -2,6 +2,27 @@
 
 > **NOTE**: This mobile app shares the same backend as the web app (`v0-viral-chat-web-app`). See the "Backend Configuration" section below for details.
 
+## Quick Start (For Resume)
+
+To restart development quickly:
+
+```bash
+# 1. Start web app (terminal 1)
+cd v0-viral-chat-web-app
+npm run dev
+
+# 2. Rebuild & launch mobile app (terminal 2)
+cd ViralChatMobile
+xcodebuild -project ViralChatMobile.xcodeproj -scheme ViralChatMobile -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
+xcrun simctl boot "iPhone 17 Pro"
+xcrun simctl install booted ~/Library/Developer/Xcode/DerivedData/ViralChatMobile-*/Build/Products/Debug-iphonesimulator/ViralChatMobile.app
+xcrun simctl launch booted com.viralchat.mobile
+```
+
+> **Note**: Mobile app currently points to `http://localhost:3000` (local web app). For production, update `APIClient.swift` to use Vercel URL.
+
+---
+
 A native iOS chat app built with SwiftUI that connects to the ViralChat backend API.
 
 ## Features
