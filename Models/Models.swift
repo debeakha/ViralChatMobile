@@ -7,7 +7,7 @@ struct Profile: Codable, Identifiable {
     var isAnonymous: Bool
     var anonymousId: String?
     var avatarUrl: String?
-    var createdAt: Date
+    var createdAt: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -24,8 +24,8 @@ struct Channel: Codable, Identifiable {
     let id: String
     var name: String
     var description: String?
-    var createdAt: Date
-    var updatedAt: Date
+    var createdAt: String
+    var updatedAt: String
     
     enum CodingKeys: String, CodingKey {
         case id, name, description
@@ -41,7 +41,7 @@ struct Message: Codable, Identifiable {
     var content: String
     var isAnonymous: Bool
     var anonymousName: String?
-    var createdAt: Date
+    var createdAt: String
     var profiles: Profile?
     
     enum CodingKeys: String, CodingKey {

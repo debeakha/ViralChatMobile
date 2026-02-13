@@ -67,13 +67,25 @@ class ChannelViewModel: ObservableObject {
     
     func fetchChannels() {
         isLoading = true
-        // Simulated channels - in production, call API
-        channels = [
-            Channel(id: "1", name: "tech", description: "Technology discussions", createdAt: Date(), updatedAt: Date()),
-            Channel(id: "2", name: "trends", description: "What's trending", createdAt: Date(), updatedAt: Date()),
-            Channel(id: "3", name: "ideas", description: "Brainstorming", createdAt: Date(), updatedAt: Date()),
-            Channel(id: "4", name: "marketing", description: "Marketing strategies", createdAt: Date(), updatedAt: Date())
-        ]
-        isLoading = false
+        
+        Task {
+            do {
+                let response: ChannelsResponse = try await APIClient.request(
+                    endpoint: "/api/channels"
+                )
+                await MainActor.run {
+                    self.channels = response.channels
+                }
+            } catch {
+                print("Error fetching channels: \(error)")
+            }
+            await MainActor.run {
+                self.isLoading = false
+            }
+        }
     }
+}
+
+struct ChannelsResponse: Decodable {
+    let channels: [Channel]
 }

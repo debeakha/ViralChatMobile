@@ -1,7 +1,7 @@
 import Foundation
 
 class APIClient {
-    static let baseURL = "https://debeakha-v0-viral-chat-web-j1dwymidl-debeas-projects.vercel.app"
+    static let baseURL = "http://localhost:3000"
     
     static func request<T: Decodable>(
         endpoint: String,
